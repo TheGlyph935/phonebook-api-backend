@@ -1,0 +1,22 @@
+{
+  "name": "part3",
+  "version": "0.0.1",
+  "scripts": {
+    "test": "echo \"Error no test specified\" && exit 1",
+    "start": " node ./src/index.js",
+    "dev": " nodemon ./src/index.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "react": "^17.0.2",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "morgan": "^1.10.0",
+    "react": "^17.0.2"
+  }
+}
