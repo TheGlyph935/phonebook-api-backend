@@ -1,22 +1,21 @@
 {
-  "name": "part3",
+  "name": "phonebook_backend",
   "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error no test specified\" && exit 1",
-    "start": " node ./src/index.js",
-    "dev": " nodemon ./src/index.js"
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "devDependencies": {
-    "nodemon": "^2.0.15"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "react": "^17.0.2",
+  "author": "Pablo Ibarraran",
+  "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.3",
-    "morgan": "^1.10.0",
-    "react": "^17.0.2"
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }

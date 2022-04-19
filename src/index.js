@@ -4,12 +4,14 @@ const app = express()
 app.use(express.json())
 const morgan = require('morgan')
 const cors = require('cors')
+const { response } = require('express')
 
 morgan.token('body', (request, response) => {
   return JSON.stringify(request.body)
 })
 app.use(cors())
-app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body :status'))
+app.use(express.static('build'))
 
 let persons = [
   { 
@@ -91,7 +93,7 @@ app.post('/api/persons', (request, response) => {
   }
   persons = [...persons, newPerson]
 
-  console.log(request.method)
+  
   response.json(newPerson).status(204)
 })
 
