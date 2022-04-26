@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const pass = require('./mongoPassword')
 
 if (process.argv.length < 3) {
   console.log('Please provide the password as an argument: node mongo.js <password>')
@@ -7,27 +8,37 @@ if (process.argv.length < 3) {
 
 const password = process.argv[2]
 
-const url =
-"mongodb+srv://Pablo:JackWilder7@phonebook-backend-clust.pqwyv.mongodb.net/PhonebookDatabase?retryWrites=true&w=majority"
+
+const url = 
+`mongodb+srv://Pablo:${pass.pass}@phonebook-backend-clust.pqwyv.mongodb.net/PhonebookDatabase?retryWrites=true&w=majority`
 
 mongoose.connect(url)
 
-const noteSchema = new mongoose.Schema({
-  content: String,
-  date: Date,
-  important: Boolean,
+const personSchema = new mongoose.Schema({
+  name: String,
+  phone: String,
 })
 
-const Note = mongoose.model('Note', noteSchema)
+const Person = mongoose.model('Person', personSchema)
 
-const note = new Note({
-  content: 'HTML is Easy',
-  date: new Date(),
-  important: true,
+if (process.argv.length === 3){
+  console.log('phonebook')
+  Person.find({}).then(result => {
+    result.forEach(person => {
+      console.log(person)
+    })
+    mongoose.connection.close()
+  })
+}
+
+const person = new Person({
+  name: process.argv[3],
+  phone: process.argv[4]
 })
 
-note.save().then(result => {
-  console.log('note saved!')
+
+person.save().then(result => {
   mongoose.connection.close()
 })
+
 
