@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const req = require('express/lib/request')
 const app = express()
@@ -5,6 +6,8 @@ app.use(express.json())
 const morgan = require('morgan')
 const cors = require('cors')
 const { response } = require('express')
+const Person = require('../models/person')
+
 
 morgan.token('body', (request, response) => {
   return JSON.stringify(request.body)
@@ -41,7 +44,9 @@ app.get('/', (request, response) =>{
 })
 
 app.get('/api/persons', (request, response) => {
-  response.json(persons)
+  Person.find({}).then(person => {
+    response.json(person)
+  })
 })
 
 app.get('/info', (request, response) => {
@@ -49,23 +54,26 @@ app.get('/info', (request, response) => {
 })
 
 app.get('/api/persons/:id', (request, response) =>{
-  const id = Number(request.params.id)
-  const person = persons.find(person => person.id === id)
-  if(person){
+  Person.findById(request.params.id).then(person =>{
     response.json(person)
-  } else{
-    response.status(404).end()
-  }
+  })
 })
 
 app.delete('/api/persons/:id', (request, response) => {
-  const id = Number(request.params.id)
-  persons = persons.filter(person => person.id !== id)
-  response.status(204).end()
+
+  Person.findByIdAndDelete(request.params.id).then(person => {
+    response.status(204).end()
+  })
 })
 
 app.post('/api/persons', (request, response) => {
   const person = request.body
+
+  // checks if there is content in the first place
+  
+  if(person.name === undefined || person.number === undefined){
+    response.status(400).json({error: "content is missing"})
+  }
   // checks if person object exsists, has name & number in it before proceeding
   if(!person || !person.name || !person.number){
     response.status(400).json({
@@ -84,20 +92,21 @@ app.post('/api/persons', (request, response) => {
 
   const allIds = persons.map(person => person.id)
   const maxId = Math.max(...allIds)
-  console.log(maxId)
 
-  const newPerson = {
+  const newPerson = new Person({
     id: maxId + 1,
     name: person.name,
-    number: person.number
-  }
+    number: person.number,
+  })
+
   persons = [...persons, newPerson]
 
-  
-  response.json(newPerson).status(204)
+  newPerson.save().then(savedPerson => {
+    response.json(savedPerson).status(204)
+  })
 })
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT
 app.listen(PORT, () => {
   console.log(`App running on PORT # ${PORT}`)
 })
