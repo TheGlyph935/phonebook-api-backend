@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const pass = require('../mongoPassword')
+
 
 const url = process.env.MONGODB_URI
 
