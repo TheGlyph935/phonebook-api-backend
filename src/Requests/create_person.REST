@@ -2,6 +2,22 @@ POST http://localhost:3001/api/persons
 Content-Type: application/json
 
 {
-    "name": "Pablo Ibarraran",
-    "number": "714-724-1982"
+    "name": "Pablo Ibarran",
+    "number": "714"
+}
+
+### 
+GET http://localhost:3001/api/persons
+
+###
+DELETE http://localhost:3001/api/persons/2
+
+###
+
+PUT http://localhost:3001/api/persons/628d8306d1eb4ae5e2d62ff0
+Content-Type: application/json
+
+{
+    "name": "Renata Olivares",
+    "number": "714-880-2384"
 }
