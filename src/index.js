@@ -56,8 +56,8 @@ app.put('/api/persons/:id', (request, response, next) => {
   const id = request.params.id
   
   const person = {
-    name: body.name,
-    number: body.number,
+    name: name,
+    number: number,
   }
 
   // FIND BY ID TO MAKE SURE CREDENTIALS ARENT THE SAME
@@ -69,7 +69,7 @@ app.put('/api/persons/:id', (request, response, next) => {
   })
 
   Person.findByIdAndUpdate(request.params.id, 
-    {content, important}, 
+    {name, number}, 
     {new: true, runValidators: true, context:'query'},)
   .then(updatedPerson => {
     response.json(updatedPerson)
