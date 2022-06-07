@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 const mongoose = require('mongoose')
 const pass = require('./mongoPassword')
 
@@ -9,7 +11,7 @@ if (process.argv.length < 3) {
 const password = process.argv[2]
 
 
-const url = 
+const url =
 `mongodb+srv://Pablo:${pass.pass}@phonebook-backend-clust.pqwyv.mongodb.net/PhonebookDatabase?retryWrites=true&w=majority`
 
 mongoose.connect(url)

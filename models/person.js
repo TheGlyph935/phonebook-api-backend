@@ -1,3 +1,7 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
+
+const { request } = require('express')
 const mongoose = require('mongoose')
 
 
@@ -18,11 +22,27 @@ mongoose.connect(url)
 const personSchema = new mongoose.Schema({
   name: {
     type: String,
+    minlength: 3,
     required: true,
   },
   number: {
     type: String,
     required: true,
+    minlength: 8,
+    validate: {
+      validator: function(number) {
+
+        console.log(number)
+        if(number.includes('-')){
+          const newNumber = number.split('-')[0]
+          return newNumber === 2 || newNumber === 3
+        } else{
+          console.log('penis')
+          return true
+        }
+      },
+      message: 'Improper phone number format'
+    },
   }
 })
 

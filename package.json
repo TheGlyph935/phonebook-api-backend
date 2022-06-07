@@ -7,7 +7,8 @@
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "mongo": "node mongo.js password"
+    "mongo": "node mongo.js password",
+    "lint": "eslint ."
   },
   "author": "Pablo Ibarraran",
   "license": "MIT",
@@ -19,6 +20,7 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "eslint": "^8.17.0",
     "nodemon": "^2.0.15"
   }
 }
